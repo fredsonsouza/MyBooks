@@ -24,6 +24,10 @@ class BooksRepository {
 
     this.books.push(book);
   }
+
+  list(): Book[] {
+    return this.books;
+  }
 }
 
 export { BooksRepository };

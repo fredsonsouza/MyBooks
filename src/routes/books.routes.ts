@@ -13,4 +13,10 @@ booksRoutes.post("/", (request, response) => {
   return response.status(201).send();
 });
 
+booksRoutes.get("/", (request, response) => {
+  const all = booksRepository.list();
+
+  return response.json(all);
+});
+
 export { booksRoutes };
