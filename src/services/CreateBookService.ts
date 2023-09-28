@@ -1,4 +1,4 @@
-import { BooksRepository } from "../repositories/BooksRepository";
+import { IBooksRepository } from "../repositories/IBooksRepository";
 
 interface IRequest {
   title: string;
@@ -7,7 +7,7 @@ interface IRequest {
 }
 
 class CreateBookService {
-  constructor(private booksRepository: BooksRepository) {}
+  constructor(private booksRepository: IBooksRepository) {}
 
   execute({ title, year, edition }: IRequest): void {
     const bookAlreadyExists = this.booksRepository.findByTitle(title);

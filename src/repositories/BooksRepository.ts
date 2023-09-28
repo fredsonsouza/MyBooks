@@ -1,12 +1,7 @@
 import { Book } from "../model/Book";
+import { IBooksRepository, ICreateBookDTO } from "./IBooksRepository";
 
-interface ICreateBookDTO {
-  title: string;
-  year: string;
-  edition: string;
-}
-
-class BooksRepository {
+class BooksRepository implements IBooksRepository {
   private books: Book[];
 
   constructor() {
