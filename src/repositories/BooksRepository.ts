@@ -28,6 +28,11 @@ class BooksRepository {
   list(): Book[] {
     return this.books;
   }
+
+  findByTitle(title: string): Book {
+    const book = this.books.find((book) => book.title === title);
+    return book;
+  }
 }
 
 export { BooksRepository };
