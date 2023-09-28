@@ -1,25 +1,16 @@
 import { Router } from "express";
 
-import { Book } from "../model/Book";
+import { BooksRepository } from "../repositories/BooksRepository";
 
 const booksRoutes = Router();
 
-const books: Book[] = [];
+const booksRepository = new BooksRepository();
 
 booksRoutes.post("/", (request, response) => {
   const { title, year, edition } = request.body;
 
-  const book = new Book();
-  Object.assign(book, {
-    title,
-    year,
-    edition,
-    created_at: new Date(),
-  });
-
-  books.push(book);
-
-  return response.status(201).json({ book });
+  booksRepository.create({ title, year, edition });
+  return response.status(201).send();
 });
 
 export { booksRoutes };
