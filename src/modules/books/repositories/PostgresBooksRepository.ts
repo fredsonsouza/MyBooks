@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Book } from "../model/Book";
+import { Book } from "../modules/books/model/Book";
 import { IBooksRepository, ICreateBookDTO } from "./IBooksRepository";
 
 class PostgresBooksRepository implements IBooksRepository {

@@ -1,7 +1,7 @@
 import { Router } from "express";
 
-import { BooksRepository } from "../repositories/BooksRepository";
-import { CreateBookService } from "../services/CreateBookService";
+import { BooksRepository } from "../modules/books/repositories/BooksRepository";
+import { CreateBookService } from "../modules/books/services/CreateBookService";
 
 const booksRoutes = Router();
 
