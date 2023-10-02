@@ -1,4 +1,4 @@
-import { IBooksRepository } from "../repositories/IBooksRepository";
+import { IBooksRepository } from "../../repositories/IBooksRepository";
 
 interface IRequest {
   title: string;
@@ -6,7 +6,7 @@ interface IRequest {
   edition: string;
 }
 
-class CreateBookService {
+class CreateBookUseCase {
   constructor(private booksRepository: IBooksRepository) {}
 
   execute({ title, year, edition }: IRequest): void {
@@ -20,4 +20,4 @@ class CreateBookService {
   }
 }
 
-export { CreateBookService };
+export { CreateBookUseCase };

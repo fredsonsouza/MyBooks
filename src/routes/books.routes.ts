@@ -1,26 +1,16 @@
 import { Router } from "express";
 
-import { BooksRepository } from "../modules/books/repositories/BooksRepository";
-import { CreateBookService } from "../modules/books/services/CreateBookService";
+import { createBookController } from "../modules/books/useCases/createBook";
+import { listBooksController } from "../modules/books/useCases/listBook";
 
 const booksRoutes = Router();
 
-const booksRepository = new BooksRepository();
-
 booksRoutes.post("/", (request, response) => {
-  const { title, year, edition } = request.body;
-
-  const createBookService = new CreateBookService(booksRepository);
-
-  createBookService.execute({ title, year, edition });
-
-  return response.status(201).send();
+  return createBookController.handle(request, response);
 });
 
 booksRoutes.get("/", (request, response) => {
-  const all = booksRepository.list();
-
-  return response.json(all);
+  return listBooksController.handle(request, response);
 });
 
 export { booksRoutes };
