@@ -3,6 +3,7 @@
     "airbnb",
     "camelcase",
     "mybooks",
+    "openapi",
     "uuidv"
   ]
 }

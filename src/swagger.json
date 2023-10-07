@@ -1,0 +1,54 @@
+{
+  "openapi":"3.0.0",
+  "info":{
+    "title":"MyBooks Documentation",
+    "description":"This is an API Book",
+    "version":"1.0.0",
+    "contact":{
+      "email":"fredsouza.dev@gmail.com"
+    }
+  },
+  "paths":{
+    "/books":{
+      "post":{
+        "tags":["Book"],
+        "summary":"Create a Book",
+        "description":"Create a new Book",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "title":{
+                    "type":"string"
+                  },
+                  "year":{
+                    "type":"string"
+                  },
+                  "edition":{
+                    "type":"number"
+                  }
+                },
+                "example":{
+                  "title":"Book title sample",
+                  "year":"Book year sample",
+                  "edition":"Book edition sample"
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "201":{
+            "description":"Created"
+          },
+          "500":{
+            "description":"Book already exists"
+          }
+        }
+
+      }
+    }
+  }
+}

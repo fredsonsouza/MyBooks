@@ -1,17 +1,15 @@
 import express from "express";
+import swaggerUi from "swagger-ui-express";
 
-import { booksRoutes } from "./routes/books.routes";
-import { bookCasesRouter } from "./routes/booksCases.routes";
+import { router } from "./routes";
+import swaggerFile from "./swagger.json";
 
 const app = express();
 
-app.get("/", (request, response) => {
-  return response.json({ message: "Hey, Let's go!" });
-});
-
 app.use(express.json());
 
-app.use("/books", booksRoutes);
-app.use("/bookCases", bookCasesRouter);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+app.use(router);
 
 app.listen(3333, () => console.log("Server is running!"));

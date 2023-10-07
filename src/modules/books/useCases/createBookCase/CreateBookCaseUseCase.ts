@@ -1,11 +1,10 @@
-import { BookCasesRepository } from "../repositories/BookCasesRepository";
+import { BookCasesRepository } from "../../repositories/implementations/BookCasesRepository";
 
 interface IRequest {
   numeration: number;
   stand: number;
 }
-
-class CreateBookCaseService {
+class CreateBookCaseUseCase {
   constructor(private bookCasesRepository: BookCasesRepository) {}
 
   execute({ numeration, stand }: IRequest): void {
@@ -15,7 +14,9 @@ class CreateBookCaseService {
     if (bookCaseAlreadyExists) {
       throw new Error("BookCase Already Exists!");
     }
-    this.bookCasesRepository.create({ numeration, stand });
+
+    return this.bookCasesRepository.create({ numeration, stand });
   }
 }
-export { CreateBookCaseService };
+
+export { CreateBookCaseUseCase };

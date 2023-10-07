@@ -1,8 +1,8 @@
-import { BooksRepository } from "../../repositories/BooksRepository";
+import { BooksRepository } from "../../repositories/implementations/BooksRepository";
 import { CreateBookController } from "./CreateBookController";
 import { CreateBookUseCase } from "./CreateBookUseCase";
 
-const booksRepository = new BooksRepository();
+const booksRepository = BooksRepository.getInstance();
 
 const createBookUseCase = new CreateBookUseCase(booksRepository);
 
