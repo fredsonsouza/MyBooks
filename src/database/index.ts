@@ -2,11 +2,19 @@ import { DataSource } from "typeorm";
 
 const dataSource = new DataSource({
   type:"postgres",
-  host:"database_mybooks",
+  host:"localhost",
   port:5432,
   username:"docker",
   password:"ignite",
-  database:"mybooks"
+  database:"mybooks",
+  migrations:[
+    "./src/database/migrations/*.ts",
+  ]
 })
 
-dataSource.initialize()
+export function createConnection(host ="database_mybooks"): Promise<DataSource>{
+  return dataSource.setOptions({host}).initialize()
+}
+
+export default dataSource
+
