@@ -2,10 +2,15 @@ import { BooksRepository } from "../../repositories/implementations/BooksReposit
 import { CreateBookController } from "./CreateBookController";
 import { CreateBookUseCase } from "./CreateBookUseCase";
 
-const booksRepository = BooksRepository.getInstance();
+export default(): CreateBookController=>{
 
-const createBookUseCase = new CreateBookUseCase(booksRepository);
+  const booksRepository = new BooksRepository()
 
-const createBookController = new CreateBookController(createBookUseCase);
+  const createBookUseCase = new CreateBookUseCase(booksRepository);
+  
+  const createBookController = new CreateBookController(createBookUseCase);
 
-export { createBookController };
+  return createBookController
+}
+
+

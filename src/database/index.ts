@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { Book } from "../modules/books/entities/Book";
 
 const dataSource = new DataSource({
   type:"postgres",
@@ -9,7 +10,8 @@ const dataSource = new DataSource({
   database:"mybooks",
   migrations:[
     "./src/database/migrations/*.ts",
-  ]
+  ],
+  entities: [Book],
 })
 
 export function createConnection(host ="database_mybooks"): Promise<DataSource>{

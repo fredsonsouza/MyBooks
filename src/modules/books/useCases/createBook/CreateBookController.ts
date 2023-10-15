@@ -5,10 +5,10 @@ import { CreateBookUseCase } from "./CreateBookUseCase";
 class CreateBookController {
   constructor(private createBookUseCase: CreateBookUseCase) {}
 
-  handle(request: Request, response: Response): Response {
+  async handle(request: Request, response: Response):Promise< Response> {
     const { title, year, edition } = request.body;
 
-    this.createBookUseCase.execute({ title, year, edition });
+   await this.createBookUseCase.execute({ title, year, edition });
 
     return response.status(201).send();
   }

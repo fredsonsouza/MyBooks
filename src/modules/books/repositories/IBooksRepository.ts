@@ -1,4 +1,4 @@
-import { Book } from "../model/Book";
+import { Book } from "../entities/Book";
 
 interface ICreateBookDTO {
   title: string;
@@ -7,9 +7,9 @@ interface ICreateBookDTO {
 }
 
 interface IBooksRepository {
-  findByTitle(title: string): Book;
-  list(): Book[];
-  create({ title, year, edition }: ICreateBookDTO): void;
+  findByTitle(title: string): Promise<Book>;
+  list(): Promise<Book[]>;
+  create({ title, year, edition }: ICreateBookDTO): Promise<void>;
 }
 
 export { IBooksRepository, ICreateBookDTO };

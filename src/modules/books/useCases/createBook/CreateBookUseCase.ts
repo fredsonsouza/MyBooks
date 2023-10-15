@@ -9,8 +9,8 @@ interface IRequest {
 class CreateBookUseCase {
   constructor(private booksRepository: IBooksRepository) {}
 
-  execute({ title, year, edition }: IRequest): void {
-    const bookAlreadyExists = this.booksRepository.findByTitle(title);
+  async execute({ title, year, edition }: IRequest): Promise<void> {
+    const bookAlreadyExists = await this.booksRepository.findByTitle(title);
 
     if (bookAlreadyExists) {
       throw new Error("Book Already Exists!");

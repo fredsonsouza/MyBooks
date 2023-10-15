@@ -2,7 +2,7 @@ import { BooksRepository } from "../../repositories/implementations/BooksReposit
 import { ListBooksController } from "./ListBooksController";
 import { ListBooksUseCase } from "./ListBooksUseCase";
 
-const booksRepository = BooksRepository.getInstance();
+const booksRepository = null
 const listBooksUseCase = new ListBooksUseCase(booksRepository);
 const listBooksController = new ListBooksController(listBooksUseCase);
 

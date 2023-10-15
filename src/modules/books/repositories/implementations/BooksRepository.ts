@@ -1,40 +1,35 @@
-import { Book } from "../../model/Book";
+import { Repository } from "typeorm";
 import { IBooksRepository, ICreateBookDTO } from "../IBooksRepository";
+import dataSource from "../../../../database";
+import { Book } from "../../entities/Book";
 
 class BooksRepository implements IBooksRepository {
-  private books: Book[];
-
-  private static INSTANCE: BooksRepository;
+  private repository: Repository<Book>
 
   constructor() {
-    this.books = [];
+    this.repository = dataSource.getRepository(Book)
   }
 
-  public static getInstance(): BooksRepository {
-    if (!BooksRepository.INSTANCE) {
-      BooksRepository.INSTANCE = new BooksRepository();
-    }
-    return BooksRepository.INSTANCE;
-  }
-  create({ title, year, edition }: ICreateBookDTO): void {
-    const book = new Book();
-    Object.assign(book, {
+  async create({ title, year, edition }: ICreateBookDTO):Promise<void>  {
+   const book = this.repository.create({
       title,
       year,
-      edition,
-      created_at: new Date(),
+      edition
     });
+    await this.repository.save(book)
 
-    this.books.push(book);
+    
   }
 
-  list(): Book[] {
-    return this.books;
+  async list(): Promise<Book[]> {
+    const books = await this.repository.find()
+
+    return books
   }
 
-  findByTitle(title: string): Book {
-    const book = this.books.find((book) => book.title === title);
-    return book;
+  async findByTitle(title: string): Promise<Book> {
+    const book = await this.repository.findOneBy({title})
+    return book
   }
 }
 

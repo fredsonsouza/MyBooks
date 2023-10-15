@@ -1,4 +1,4 @@
-import { BookCase } from "../../model/BookCase";
+import { BookCase } from "../../entities/BookCase";
 import {
   IBookCasesRepository,
   ICreateBookCaseDTO,
