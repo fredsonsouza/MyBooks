@@ -1,21 +1,25 @@
+import { inject, injectable } from "tsyringe";
 import { BookCasesRepository } from "../../repositories/implementations/BookCasesRepository";
 
 interface IRequest {
   numeration: number;
   stand: number;
 }
-class CreateBookCaseUseCase {
-  constructor(private bookCasesRepository: BookCasesRepository) {}
 
-  execute({ numeration, stand }: IRequest): void {
-    const bookCaseAlreadyExists =
-      this.bookCasesRepository.findByNumeration(numeration);
+@injectable()
+class CreateBookCaseUseCase {
+  constructor(
+    @inject("BookCasesRepository")
+    private bookCasesRepository: BookCasesRepository) {}
+
+ async execute({ numeration, stand }: IRequest): Promise<void> {
+    const bookCaseAlreadyExists = await this.bookCasesRepository.findByNumeration(numeration);
 
     if (bookCaseAlreadyExists) {
       throw new Error("BookCase Already Exists!");
     }
 
-    return this.bookCasesRepository.create({ numeration, stand });
+    await this.bookCasesRepository.create({ numeration, stand });
   }
 }
 

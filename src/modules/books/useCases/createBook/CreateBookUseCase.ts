@@ -1,3 +1,4 @@
+import { inject, injectable } from "tsyringe";
 import { IBooksRepository } from "../../repositories/IBooksRepository";
 
 interface IRequest {
@@ -6,8 +7,11 @@ interface IRequest {
   edition: string;
 }
 
+@injectable()
 class CreateBookUseCase {
-  constructor(private booksRepository: IBooksRepository) {}
+  constructor(
+    @inject("BooksRepository")
+    private booksRepository: IBooksRepository) {}
 
   async execute({ title, year, edition }: IRequest): Promise<void> {
     const bookAlreadyExists = await this.booksRepository.findByTitle(title);
@@ -16,7 +20,7 @@ class CreateBookUseCase {
       throw new Error("Book Already Exists!");
     }
 
-    this.booksRepository.create({ title, year, edition });
+    await this.booksRepository.create({ title, year, edition });
   }
 }
 

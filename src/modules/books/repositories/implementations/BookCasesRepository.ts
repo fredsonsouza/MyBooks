@@ -1,42 +1,38 @@
+import { Repository } from "typeorm";
 import { BookCase } from "../../entities/BookCase";
 import {
   IBookCasesRepository,
   ICreateBookCaseDTO,
 } from "../IBookCasesRepository";
+import dataSource from "../../../../database";
 
 class BookCasesRepository implements IBookCasesRepository {
-  private bookCases: BookCase[];
+  private repository: Repository<BookCase>
 
-  private static INSTANCE: BookCasesRepository;
 
   constructor() {
-    this.bookCases = [];
+    this.repository = dataSource.getRepository(BookCase)
   }
 
-  public static getInstance(): BookCasesRepository {
-    if (!BookCasesRepository.INSTANCE) {
-      BookCasesRepository.INSTANCE = new BookCasesRepository();
-    }
-    return BookCasesRepository.INSTANCE;
-  }
 
-  create({ numeration, stand }: ICreateBookCaseDTO): void {
+  async create({ numeration, stand }: ICreateBookCaseDTO): Promise<void> {
     const bookCase = new BookCase();
     Object.assign(bookCase, {
       numeration,
       stand,
       created_at: new Date(),
     });
-    this.bookCases.push(bookCase);
+    await this.repository.save(bookCase)
   }
-  list(): BookCase[] {
-    return this.bookCases;
+ async list(): Promise<BookCase[]> {
+    const bookCases = await this.repository.find()
+    return bookCases;
   }
-  findByNumeration(numeration: number): BookCase {
-    const bookCase = this.bookCases.find(
-      (bookCase) => bookCase.numeration === numeration,
-    );
-    return bookCase;
+  async findByNumeration(numeration: number): Promise<BookCase> {
+    const bookCase = await this.repository.findOneBy({numeration})
+
+    return bookCase
+     
   }
 }
 export { BookCasesRepository };

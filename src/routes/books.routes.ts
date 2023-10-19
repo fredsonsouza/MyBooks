@@ -1,7 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 
-import  createBookController  from "../modules/books/useCases/createBook";
+import { CreateBookController } from "../modules/books/useCases/createBook/CreateBookController";
 import { listBooksController } from "../modules/books/useCases/listBook";
 
 const booksRoutes = Router();
@@ -10,9 +10,9 @@ const upload = multer({
   dest: "./tmp",
 });
 
-booksRoutes.post("/", (request, response) => {
-  return createBookController().handle(request, response);
-});
+const createBookController = new CreateBookController()
+
+booksRoutes.post("/",createBookController.handle) 
 
 booksRoutes.get("/", (request, response) => {
   return listBooksController.handle(request, response);

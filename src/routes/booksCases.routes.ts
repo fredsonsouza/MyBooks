@@ -1,20 +1,18 @@
 import { Router } from "express";
 
 import { BookCasesRepository } from "../modules/books/repositories/implementations/BookCasesRepository";
-import { bookCaseController } from "../modules/books/useCases/createBookCase";
+import { CreateBookCaseController } from "../modules/books/useCases/createBookCase/CreateBookCaseController";
 
 const bookCasesRouter = Router();
 
-const bookCasesRepository = new BookCasesRepository();
+const createBookCaseController = new CreateBookCaseController()
 
-bookCasesRouter.post("/", (request, response) => {
-  bookCaseController.handle(request, response);
-});
+bookCasesRouter.post("/", createBookCaseController.handle);
 
-bookCasesRouter.get("/", (request, response) => {
-  const all = bookCasesRepository.list();
+// bookCasesRouter.get("/", (request, response) => {
+//   const all = bookCasesRepository.list();
 
-  return response.json(all);
-});
+//   return response.json(all);
+// });
 
 export { bookCasesRouter };

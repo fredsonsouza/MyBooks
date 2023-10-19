@@ -1,4 +1,4 @@
-import { BookCase } from "../modules/books/model/BookCase";
+import { BookCase } from "../entities/BookCase";
 
 interface ICreateBookCaseDTO {
   numeration: number;
@@ -6,9 +6,9 @@ interface ICreateBookCaseDTO {
 }
 
 interface IBookCasesRepository {
-  create({ numeration, stand }: ICreateBookCaseDTO): void;
-  list(): BookCase[];
-  findByNumeration(numeration: number): BookCase;
+  create({ numeration, stand }: ICreateBookCaseDTO): Promise<void>;
+  list(): Promise<BookCase[]>;
+  findByNumeration(numeration: number): Promise<BookCase>;
 }
 
 export { IBookCasesRepository, ICreateBookCaseDTO };
