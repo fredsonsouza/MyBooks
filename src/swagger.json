@@ -49,6 +49,43 @@
         }
 
       }
+    },
+    "/bookCases":{
+      "post":{
+        "tags":["BookCases"],
+        "summary":"Create a new BookCase",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "$ref":"#/definitions/BookCase"
+
+              }
+            }
+          }
+        },
+        "responses":{
+          "201":{
+            "description":"Created"
+          },
+          "500":{
+            "description":"BookCase already exists!"
+          }
+        }
+      }
+    }
+  },
+  "definitions":{
+    "BookCase":{
+      "type":"object",
+      "properties":{
+        "numeration":{
+          "type":"string"
+        },
+        "stand":{
+          "type":"string"
+        }
+      }
     }
   }
 }

@@ -8,10 +8,10 @@ class BookCase {
   id?: string;
 
   @Column()
-  numeration: number;
+  numeration: string;
   
   @Column()
-  stand: number;
+  stand: string;
   
   @CreateDateColumn()
   created_at: Date;
