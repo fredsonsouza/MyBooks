@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { BookCasesRepository } from "../../repositories/implementations/BookCasesRepository";
+import { AppError } from "../../../../errors/AppError";
 
 interface IRequest {
   numeration: number;
@@ -16,7 +17,7 @@ class CreateBookCaseUseCase {
     const bookCaseAlreadyExists = await this.bookCasesRepository.findByNumeration(numeration);
 
     if (bookCaseAlreadyExists) {
-      throw new Error("BookCase Already Exists!");
+      throw new AppError("BookCase Already Exists!");
     }
 
     await this.bookCasesRepository.create({ numeration, stand });

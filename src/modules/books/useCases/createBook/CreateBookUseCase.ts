@@ -1,5 +1,6 @@
 import { inject, injectable } from "tsyringe";
 import { IBooksRepository } from "../../repositories/IBooksRepository";
+import { AppError } from "../../../../errors/AppError";
 
 interface IRequest {
   title: string;
@@ -17,7 +18,7 @@ class CreateBookUseCase {
     const bookAlreadyExists = await this.booksRepository.findByTitle(title);
 
     if (bookAlreadyExists) {
-      throw new Error("Book Already Exists!");
+      throw new AppError("Book Already Exists!");
     }
 
     await this.booksRepository.create({ title, year, edition });

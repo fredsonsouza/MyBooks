@@ -3,6 +3,7 @@ import multer from "multer";
 
 import { CreateBookController } from "../modules/books/useCases/createBook/CreateBookController";
 import { listBooksController } from "../modules/books/useCases/listBook";
+import { ensureAuthenticated } from "../middlewares/ensureAuthenticated";
 
 const booksRoutes = Router();
 
@@ -12,16 +13,11 @@ const upload = multer({
 
 const createBookController = new CreateBookController()
 
+booksRoutes.use(ensureAuthenticated)
 booksRoutes.post("/",createBookController.handle) 
 
 booksRoutes.get("/", (request, response) => {
   return listBooksController.handle(request, response);
-});
-
-booksRoutes.post("/import", upload.single("file"), (request, response) => {
-  const { file } = request;
-  console.log(file);
-  return response.send();
 });
 
 export { booksRoutes };
