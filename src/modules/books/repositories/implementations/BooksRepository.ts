@@ -17,8 +17,6 @@ class BooksRepository implements IBooksRepository {
       edition
     });
     await this.repository.save(book)
-
-    
   }
 
   async list(): Promise<Book[]> {
